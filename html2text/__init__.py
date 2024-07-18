@@ -683,7 +683,6 @@ class HTML2Text(html.parser.HTMLParser):
             else:
                 if tag == "table":
                     if start:
-                        self.table_start = True
                         if self.pad_tables:
                             self.o("<" + config.TABLE_MARKER_FOR_PAD + ">")
                             self.o("  \n")
@@ -693,6 +692,10 @@ class HTML2Text(html.parser.HTMLParser):
                             self.soft_br()
                             self.o("</" + config.TABLE_MARKER_FOR_PAD + ">")
                             self.o("  \n")
+                # FIXME: Tests
+                if tag == "th":
+                    self.table_start = True
+
                 if tag in ["td", "th"] and start:
                     if self.split_next_td:
                         self.o("| ")
